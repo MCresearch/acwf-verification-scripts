@@ -18,6 +18,12 @@
             "unaries": "results-unaries-verification-PBE-v1-abinit-PseudoDojo-0.5b1-PBE-SR-standard-psp8.json",
             "short_label": "ABINIT"
         },
+       "abacus@PW|PseudoDojo-v0.4":{
+            "oxides": "results-oxides-verification-PBE-v1-abacus.json",
+            "unaries": "results-unaries-verification-PBE-v1-abacus.json",
+            "short_label": "abacus"
+        },
+
         "BigDFT@DW|HGH-K(Valence)":{
             "oxides": "results-oxides-verification-PBE-v1-bigdft.json",
             "unaries": "results-unaries-verification-PBE-v1-bigdft.json",
@@ -112,6 +118,16 @@
         "VASP@PW|PBErec-PAW54*|800Cutoff":{
             "unaries": "results-unaries-verification-PBE-v1-recPOTs-800ENCUTs.json",
             "short_label": "VASP-recPBE-800Cutoff"
+        },
+        "WIEN2k@(L)APW+lo+LO":{
+            "oxides": "results-oxides-verification-PBE-v1-wien2k-dk_0.06.json",
+            "unaries": "results-unaries-verification-PBE-v1-wien2k-dk_0.06.json",
+            "short_label": "WIEN2k"
+        },
+       "abacus@PW|PseudoDojo-v0.4":{
+            "oxides": "results-oxides-verification-PBE-v1-abacus.json",
+            "unaries": "results-unaries-verification-PBE-v1-abacus.json",
+            "short_label": "abacus"
         }
     }
 }    

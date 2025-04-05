@@ -166,6 +166,15 @@ if len(sys.argv) == 2:
         ONLY_CODES = ["Quantum ESPRESSO@PW|SSSP-prec-v1.2"]
         QUANTITIES=["epsilon"]
 
+    if sys.argv[1] == "SI-PSEUDODOJO-ABACUS":
+        # Section S16
+        USE_AE_AVERAGE_AS_REFERENCE = False
+        REFERENCE_CODE_LABEL = "abacus@PW|PseudoDojo-v0.4"
+        LABELS_KEY = 'methods-supplementary'
+        ONLY_CODES = ["Quantum ESPRESSO@PW|PseudoDojo-v0.4-trim"]
+        QUANTITIES=["epsilon"]
+
+
 ## ------------------------------------------------------------------------------------------------
 
 from bokeh.models import (
@@ -1002,7 +1011,8 @@ if __name__ == "__main__":
         output_quantity_dict[QUANTITY] = {}
         for SET_NAME in SET_NAMES:
             output_quantity_dict[QUANTITY][SET_NAME] = {}
-            intermediate_dict = master_data_dict[SET_NAME]['calculated_quantities'][QUANTITY]['WIEN2k@(L)APW+lo+LO']
+            dtmp = master_data_dict[SET_NAME]['calculated_quantities'][QUANTITY]
+            intermediate_dict = dtmp['WIEN2k@(L)APW+lo+LO'] if 'WIEN2k@(L)APW+lo+LO' in dtmp else next(iter(dtmp.values()))
             for configuration, intermediate_data in intermediate_dict.items():
                 output_quantity_dict[QUANTITY][SET_NAME].update(
                     dict(zip(
@@ -1013,7 +1023,7 @@ if __name__ == "__main__":
 
     # print(output_quantity_dict['nu']['oxides'])
     ## {'Ac-X2O3': 0.009737865122023147, 'Ag-X2O3': 0.04770355931373145, ..., 'Hg-X2O5': 0.0754615851710017, ...}
-    print(output_quantity_dict['nu']['unaries'])
+    #print(output_quantity_dict['nu']['unaries'])
     # {'Ac-X/Diamond': 0.04186021792027553, 'Ag-X/Diamond': 0.037339062070366094, ..., 'As-X/BCC': 0.02878620698279048, ...}
 
     if PRINT_JSON:

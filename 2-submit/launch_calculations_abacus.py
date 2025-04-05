@@ -14,9 +14,9 @@ from aiida_common_workflows.plugins import load_workflow_entry_point
 from aiida_submission_controller import FromGroupSubmissionController
 
 DRY_RUN = False
-MAX_CONCURRENT = 5
+MAX_CONCURRENT = 20
 PLUGIN_NAME = 'abacus'
-CODE_LABEL = 'abacus-3.9@cn'
+CODE_LABEL = 'abacus-3.9@cn'  # <-- Change this to the code configured to run ABACUS
 
 
 class EosSubmissionController(FromGroupSubmissionController):
@@ -54,11 +54,11 @@ class EosSubmissionController(FromGroupSubmissionController):
                 'code': CODE_LABEL,
                 'options': {
                     'resources': {
-                        'num_machines': 1,
-                        'tot_num_mpiprocs': 16
+                        'num_machines': 1,    # <- UPDATE these settings according to your scheduler
+                        'tot_num_mpiprocs': 8    # <- UPDATE these settings according to your scheduler
                     },
-                    'max_wallclock_seconds': 3600 * 12,
-                    'qos': 'urgent',
+                    'max_wallclock_seconds': 3600 * 12,    # <- UPDATE these settings according to your scheduler
+                    'qos': 'urgent',    # <- UPDATE these settings according to your scheduler
                 }
             }
 
