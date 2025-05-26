@@ -169,10 +169,23 @@ if len(sys.argv) == 2:
     if sys.argv[1] == "SI-PSEUDODOJO-ABACUS":
         # Section S16
         USE_AE_AVERAGE_AS_REFERENCE = False
-        REFERENCE_CODE_LABEL = "abacus@PW|PseudoDojo-v0.4"
+        REFERENCE_CODE_LABEL = "ABINIT@PW|PseudoDojo-v0.4"
         LABELS_KEY = 'methods-supplementary'
-        ONLY_CODES = ["Quantum ESPRESSO@PW|PseudoDojo-v0.4-trim"]
+        ONLY_CODES = ["abacus@PW|PseudoDojo-v0.4"]
         QUANTITIES=["epsilon"]
+    if sys.argv[1] == "SI-PSEUDODOJO-ABACUS-DZP":
+        # Section S16
+        USE_AE_AVERAGE_AS_REFERENCE = False
+        REFERENCE_CODE_LABEL = "ABINIT@PW|PseudoDojo-v0.4"
+        LABELS_KEY = 'methods-supplementary'
+        ONLY_CODES = ["abacus@NAO|PseudoDojo-v0.4-dzp"]
+        QUANTITIES=["epsilon"]
+    if sys.argv[1] == "SI-PSEUDODOJO-ABACUS-TZDP":
+        # Section S16
+        USE_AE_AVERAGE_AS_REFERENCE = False
+        REFERENCE_CODE_LABEL = "ABINIT@PW|PseudoDojo-v0.4"
+        LABELS_KEY = 'methods-supplementary'
+        ONLY_CODES = ["abacus@NAO|PseudoDojo-v0.4-tzdp"]
 
 
 ## ------------------------------------------------------------------------------------------------

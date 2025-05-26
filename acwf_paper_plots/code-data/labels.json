@@ -128,6 +128,16 @@
             "oxides": "results-oxides-verification-PBE-v1-abacus.json",
             "unaries": "results-unaries-verification-PBE-v1-abacus.json",
             "short_label": "abacus"
-        }
+        },
+       "abacus@NAO|PseudoDojo-v0.4-dzp":{
+            "oxides": "results-oxides-verification-PBE-v1-abacus_lcao_v1.json",
+            "unaries": "results-unaries-verification-PBE-v1-abacus_lcao_v1.json",
+            "short_label": "abacus_dzp"
+        },
+       "abacus@NAO|PseudoDojo-v0.4-tzdp":{
+            "oxides": "results-oxides-verification-PBE-v1-abacus_lcao_v1_tzdp.json",
+            "unaries": "results-unaries-verification-PBE-v1-abacus_lcao_v1_tzdp.json",
+            "short_label": "abacus_tzdp"
+       }
     }
 }    

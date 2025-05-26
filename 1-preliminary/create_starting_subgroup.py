@@ -69,10 +69,20 @@ if __name__ == "__main__":
         valid_elements = [a for a in atomic_numbers.keys() if atomic_numbers[a] <= 83]
         for elements in ['Dy', 'Ce', 'Er', 'Eu', 'Gd', 'Ho', 'La', 'Lu', 'Nd', 'Pm', 'Pr', 'Sm', 'Tb', 'Tc', 'Tm', 'Yb' ]:
             valid_elements.remove(elements)
-    elif PLUGIN_NAME == 'abacus':
+    elif PLUGIN_NAME == 'abacus_lcao_v1_tzdp':
         query = orm.QueryBuilder()
         query.append(orm.Node, project="attributes.element", tag='pseudo')
         query.append(orm.Group, filters={'label': 'PseudoDojo/0.4/PBE/SR/standard/upf'}, with_node='pseudo')
+        valid_elements = query.all(flat=True)
+    elif PLUGIN_NAME == 'abacus_lcao_v1_sg15':
+        query = orm.QueryBuilder()
+        query.append(orm.Node, project="attributes.element", tag='pseudo')
+        query.append(orm.Group, filters={'label': 'SG15_V1.0/dzp'}, with_node='pseudo')
+        valid_elements = query.all(flat=True)
+    elif PLUGIN_NAME == 'abacus_lcao_v1_tzdp_sg15':
+        query = orm.QueryBuilder()
+        query.append(orm.Node, project="attributes.element", tag='pseudo')
+        query.append(orm.Group, filters={'label': 'SG15_V1.0/tzdp'}, with_node='pseudo')
         valid_elements = query.all(flat=True)
     else:
         raise ValueError(f"Unknown plugin name `{PLUGIN_NAME}`!")
