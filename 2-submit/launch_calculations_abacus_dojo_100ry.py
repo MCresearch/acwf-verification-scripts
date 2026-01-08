@@ -14,9 +14,9 @@ from aiida_common_workflows.plugins import load_workflow_entry_point
 from aiida_submission_controller import FromGroupSubmissionController
 
 DRY_RUN = False
-MAX_CONCURRENT = 15
-PLUGIN_NAME = 'abacus_sg15'
-CODE_LABEL = 'abacus-3.10lts@cn'  # <-- Change this to the code configured to run ABACUS
+MAX_CONCURRENT = 30
+PLUGIN_NAME = 'abacus'
+CODE_LABEL = 'abacus-3.10lts@catapult'  # <-- Change this to the code configured to run ABACUS
 
 
 class EosSubmissionController(FromGroupSubmissionController):
@@ -55,10 +55,9 @@ class EosSubmissionController(FromGroupSubmissionController):
                 'options': {
                     'resources': {
                         'num_machines': 1,    # <- UPDATE these settings according to your scheduler
-                        'tot_num_mpiprocs': 8    # <- UPDATE these settings according to your scheduler
+                        'tot_num_mpiprocs': 4    # <- UPDATE these settings according to your scheduler
                     },
                     'max_wallclock_seconds': 3600 * 12,    # <- UPDATE these settings according to your scheduler
-                    'account': 'hc',    # <- UPDATE these settings according to your scheduler
                     #'qos': 'urgent',    # <- UPDATE these settings according to your scheduler
                 }
             }
@@ -75,9 +74,8 @@ class EosSubmissionController(FromGroupSubmissionController):
             'sub_process_class': sub_process_cls_name,
             'sub_process' : {  # optional code-dependent overrides
                  'base': {
-                        'pseudo_family': 'SG15_V1.0/dzp',   # Switch to SG15_V1.0/dzp family
                         'abacus': {
-                             'pseudos': {}
+                                'parameters': {'input': {'ecutwfc': 100}},
                          }
                 }
             }
@@ -100,7 +98,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     STRUCTURES_GROUP_LABEL = f'acwf-verification/{SET_NAME}/structures/{PLUGIN_NAME}'
-    WORKFLOWS_GROUP_LABEL = f'acwf-verification/{SET_NAME}/workflows/{PLUGIN_NAME}'
+    WORKFLOWS_GROUP_LABEL = f'acwf-verification/{SET_NAME}/workflows/{PLUGIN_NAME}_dojo_100Ry'
 
     controller = EosSubmissionController(
         parent_group_label=STRUCTURES_GROUP_LABEL,

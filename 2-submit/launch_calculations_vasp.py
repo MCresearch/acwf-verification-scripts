@@ -1,4 +1,6 @@
 #!/usr/bin/env runaiida
+
+# Launch VASP calculations
 import sys
 import time
 
@@ -14,9 +16,9 @@ from aiida_common_workflows.plugins import load_workflow_entry_point
 from aiida_submission_controller import FromGroupSubmissionController
 
 DRY_RUN = False
-MAX_CONCURRENT = 15
-PLUGIN_NAME = 'abacus_sg15'
-CODE_LABEL = 'abacus-3.10lts@cn'  # <-- Change this to the code configured to run ABACUS
+MAX_CONCURRENT = 30
+PLUGIN_NAME = 'vasp'
+CODE_LABEL = 'vasp-6.4.2@sugon-tai'  # <-- Change this to the code configured to run ABACUS
 
 
 class EosSubmissionController(FromGroupSubmissionController):
@@ -42,7 +44,7 @@ class EosSubmissionController(FromGroupSubmissionController):
         """
         structure = self.get_parent_node_from_extras(extras_values)
 
-        sub_process_cls = load_workflow_entry_point('relax', 'abacus')
+        sub_process_cls = load_workflow_entry_point('relax', 'vasp')
         sub_process_cls_name = get_entry_point_name_from_class(sub_process_cls).name
         generator = sub_process_cls.get_input_generator()
 
@@ -58,8 +60,8 @@ class EosSubmissionController(FromGroupSubmissionController):
                         'tot_num_mpiprocs': 8    # <- UPDATE these settings according to your scheduler
                     },
                     'max_wallclock_seconds': 3600 * 12,    # <- UPDATE these settings according to your scheduler
-                    'account': 'hc',    # <- UPDATE these settings according to your scheduler
                     #'qos': 'urgent',    # <- UPDATE these settings according to your scheduler
+                    'queue_name': 'tyhcnormal'
                 }
             }
 
@@ -67,28 +69,15 @@ class EosSubmissionController(FromGroupSubmissionController):
             'structure': structure,
             'generator_inputs': {  # code-agnostic inputs for the relaxation
                 'engines': engines,
-                'protocol': 'verification-PBE-v1',
+                'protocol': 'verification-PBE-v1-mp-like',
                 'relax_type': RelaxType.NONE,
                 'electronic_type': ElectronicType.METAL,
                 'spin_type': SpinType.NONE,
             },
             'sub_process_class': sub_process_cls_name,
-            'sub_process' : {  # optional code-dependent overrides
-                 'base': {
-                        'pseudo_family': 'SG15_V1.0/dzp',   # Switch to SG15_V1.0/dzp family
-                        'abacus': {
-                             'pseudos': {}
-                         }
-                }
-            }
-            #         'pw': {
-            #             'settings' : orm.Dict(dict= {
-            #                 'cmdline': ['-nk', '32'],
-            #             })
-            #         }
-            #     }
-            # }
-        }
+            'sub_process' : {
+}  # optional code-dependent overrides
+           }
 
         return inputs, self._process_class
 
