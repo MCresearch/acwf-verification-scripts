@@ -23,6 +23,55 @@ These scripts are a template (based on Quantum ESPRESSO) that can be adapted rel
 
 - `4-export`: bash script to export the group with all results.
 
+## Recent updates since `7a0483ec`
+
+### New interactive HTML viewers (`3-analyze/outputs`)
+
+Two new scripts were added to inspect EOS comparison results in the browser:
+
+- `generate_eos_html_viewer_chartjs.py`: generates a dataset-specific interactive EOS viewer with per-element plots and pairwise metric matrices.
+- `generate_periodic_table_viewer.py`: generates an interactive periodic-table viewer for unaries/oxides with code-pair comparison, 6 metrics (`epsilon`, `nu`, `delta`, `V0_rel_diff`, `B0_rel_diff`, `B1_rel_diff`), and click-through EOS plots.
+
+Install dependencies for these two scripts:
+
+```bash
+pip install -r requirements.txt
+```
+
+Both scripts rely on `numpy` (already in `requirements.txt`) and standard-library Python modules.  
+The generated HTML pages load front-end libraries from CDN at runtime (`Chart.js`, `chartjs-chart-matrix`, and `MathJax` for the EOS viewer), so internet access is needed when opening the page unless you vendor these assets locally.
+
+Example usage:
+
+```bash
+python 3-analyze/outputs/generate_eos_html_viewer_chartjs.py \
+  --dataset unaries-verification-PBE-v1 \
+  --codes abacus vasp \
+  --results-dir 3-analyze/outputs \
+  --output 3-analyze/outputs/eos_viewer_chartjs_unaries.html
+```
+
+```bash
+python 3-analyze/outputs/generate_periodic_table_viewer.py \
+  --oxides-codes abacus vasp \
+  --unaries-codes abacus vasp fleur \
+  --results-dir 3-analyze/outputs \
+  --output 3-analyze/outputs/periodic_table_comparison.html
+```
+
+### Other code changes
+
+- Added new submission entry points in `2-submit/` for additional setups:
+  - `launch_calculations_abacus_c19mk2.py`
+  - `launch_calculations_abacus_dojo_100ry.py`
+  - `launch_calculations_abacus_gbrv.py`
+  - `launch_calculations_abacus_sg15.py`
+  - `launch_calculations_abacus_sg15_lcao_2.0.py`
+  - `launch_calculations_vasp.py`
+- Updated `1-preliminary/create_starting_subgroup.py` to support additional plugin labels and pseudo families (including ABACUS variants and VASP).
+- Updated analysis scripts (`3-analyze/get_results.py`, `3-analyze/outputs/generate_plots.py`, `3-analyze/outputs/generate_histos.py`) to use explicit command-line plugin/set arguments.
+- Updated supplementary periodic-table comparison plot assets in `acwf_paper_plots/plots/supplementary/periodic_tables_same_pseudos_compare/`.
+
 
 ## Starting your project
 
